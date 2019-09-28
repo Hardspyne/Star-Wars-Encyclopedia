@@ -1,0 +1,33 @@
+.header {
+    display: flex;
+    margin: 1rem 0;
+}
+
+
+.header h3 a {
+color: white;
+}
+
+.header h3 a:hover {
+    color: #00bc8c;
+}
+
+.header ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.header li {
+    padding: .5rem 1rem;
+    border-radius: 5%;
+}
+
+.header li:hover {
+    background-color: #444;
+}
+
+.header a {
+    text-decoration: none;
+}
+

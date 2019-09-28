@@ -1,0 +1,33 @@
+.person-details {
+    padding: 1rem;
+    background-color: #303030;
+    border-radius: 5px;
+    width: 49%;
+}
+
+.person-details h4 {
+    margin-top: 1.4rem;
+}
+
+.person-details img {
+    object-fit: fill;
+    width: 30%;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 1rem;
+}
+
+.person-details ul {
+    padding: 0;
+    margin: 1rem 1rem 0 0;
+    list-style: none;
+}
+
+.person-details ul li {
+    padding:  0.3rem;
+}
+
+.person-details ul li span {
+    margin-left: 0.5rem;
+    color: #00bc8c;
+}
