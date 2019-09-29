@@ -3,6 +3,13 @@
     background-color: #303030;
     border-radius: 5px;
     width: 49%;
+    height: 20rem;
+}
+
+.selectPersonText {
+    font-weight: bold;
+    margin: auto;
+    font-size: 1.5rem;
 }
 
 .person-details h4 {

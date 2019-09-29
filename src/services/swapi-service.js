@@ -13,19 +13,19 @@ export default class SwApiService {
 
     async getAllPerson() {
         const persons = await this.getResource(`/people`);
-        return persons.results.map(SwApiService._convertToPerson);
+        return Promise.all(persons.results.map((person) => this._convertToPerson(person)));
     }
 
 
     async getPerson(id) {
         const result = await this.getResource(`/people/${id}`);
-        return await SwApiService._convertToPerson(result);
+        return await this._convertToPerson(result);
     }
 
 
     async getAllPlanets() {
         const planets = await this.getResource(`/planets`);
-        return planets.results.map(this._convertToPlanet);
+        return Promise.all(planets.results.map((planet) => this._convertToPlanet(planet)));
     }
 
 
@@ -42,17 +42,17 @@ export default class SwApiService {
 
     async getAllStarShips() {
         const starShips = await this.getResource(`/starships`);
-        return starShips.results.map(SwApiService._convertToStarShip);
+        return Promise.all(starShips.results.map((starShips) => this._convertToStarShip(starShips)));
     }
 
 
     async getStarShip(id) {
         const result = await this.getResource(`/starships/${id}`);
-        return await SwApiService._convertToStarShip(result);
+        return await this._convertToStarShip(result);
     }
 
-    async _getImageUrlId(id) {
-        const res = await fetch(`${this._imageBase}/planets/${id}.jpg`);
+    async _getImageUrBylId(id, type) {
+        const res = await fetch(`${this._imageBase}/${type}/${id}.jpg`);
         if (!res.ok) {
             return null;
         } else {
@@ -67,7 +67,7 @@ export default class SwApiService {
 
     async _convertToPlanet(from) {
         const id = SwApiService._extractId(from);
-        const imageUrl = await this._getImageUrlId(id);
+        const imageUrl = await this._getImageUrBylId(id, 'planets');
         return {
             id,
             imageUrl,
@@ -78,7 +78,7 @@ export default class SwApiService {
         }
     }
 
-    static async _convertToStarShip(from) {
+    async _convertToStarShip(from) {
         const id = SwApiService._extractId(from);
         //todo
         //  const imageUrl = await this._getImageUrlOrDefaultById(id);
@@ -97,17 +97,16 @@ export default class SwApiService {
     }
 
 
-    static async _convertToPerson(from) {
+    async _convertToPerson(from) {
         const id = SwApiService._extractId(from);
-        //todo
-        //  const imageUrl = await this._getImageUrlOrDefaultById(id);
+        const imageUrl = await this._getImageUrBylId(id, 'characters');
         return {
             id,
-            imageUrl: null,
+            imageUrl,
             name: from.name,
             gender: from.gender,
-            birthYear: from.birthYear,
-            eyeColor: from.eyeColor
+            birthYear: from.birth_year,
+            eyeColor: from.eye_color
         }
     }
 

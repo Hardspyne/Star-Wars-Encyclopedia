@@ -1,9 +1,14 @@
 .item-list .list-group-item {
     cursor: pointer;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .item-list {
     width: 49%;
+    height:20rem;
+    overflow-y: auto;
+    background-color: #303030;
 }
 
 .item-list .list-group-item:hover {

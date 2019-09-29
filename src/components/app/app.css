@@ -3,3 +3,22 @@
     display: flex;
     justify-content: space-between;
 }
+
+::-webkit-scrollbar {
+    width: 0.7rem;
+}
+
+::-webkit-scrollbar:horizontal {
+    height: 1rem;
+}
+
+::-webkit-scrollbar-track-piece {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #444;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to right bottom, #444, #222);
+    border-radius: 5px;
+}

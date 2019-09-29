@@ -10,9 +10,7 @@ export default class RandomPlanet extends Component {
 
     swApiService = new SwApiService();
 
-
-    constructor(props) {
-        super(props);
+    componentDidMount() {
         this.updatePlanet();
         window.setInterval(this.updatePlanet, 5000);
     }
@@ -32,7 +30,6 @@ export default class RandomPlanet extends Component {
         } catch (e) {
             this.onError(e);
         }
-
     };
 
     onPlanetLoaded = (planet) => {
