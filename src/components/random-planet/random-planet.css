@@ -6,7 +6,6 @@
 
 .random-planet img {
     width: 14%;
-    height: auto;
     border-radius: 10px;
     margin-right: 1rem;
 }
@@ -14,7 +13,7 @@
 .random-planet ul {
     margin-top: 1rem;
     list-style: none;
-    width: 200px;
+    width: 250px;
     margin-bottom: 0;
 }
 
