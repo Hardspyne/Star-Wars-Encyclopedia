@@ -11,22 +11,22 @@ export default class SwApiService {
         return await res.json();
     };
 
-    async getAllPerson() {
+    getAllPerson = async () => {
         const persons = await this.getResource(`/people`);
         return Promise.all(persons.results.map((person) => this._convertToPerson(person)));
-    }
+    };
 
 
-    async getPerson(id) {
+    getPerson = async (id) => {
         const result = await this.getResource(`/people/${id}`);
         return await this._convertToPerson(result);
-    }
+    };
 
 
-    async getAllPlanets() {
+    getAllPlanets = async () => {
         const planets = await this.getResource(`/planets`);
         return Promise.all(planets.results.map((planet) => this._convertToPlanet(planet)));
-    }
+    };
 
 
     async getAllPlanetsCount() {
@@ -35,21 +35,21 @@ export default class SwApiService {
     }
 
 
-    async getPlanet(id) {
+    getPlanet = async (id) => {
         const result = await this.getResource(`/planets/${id}`);
         return await this._convertToPlanet(result);
-    }
+    };
 
-    async getAllStarShips() {
+    getAllStarShips = async () => {
         const starShips = await this.getResource(`/starships`);
         return Promise.all(starShips.results.map((starShips) => this._convertToStarShip(starShips)));
-    }
+    };
 
 
-    async getStarShip(id) {
+    getStarShip = async (id) => {
         const result = await this.getResource(`/starships/${id}`);
         return await this._convertToStarShip(result);
-    }
+    };
 
     async _getImageUrBylId(id, type) {
         const res = await fetch(`${this._imageBase}/${type}/${id}.jpg`);

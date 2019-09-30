@@ -1,4 +1,4 @@
-.person-details {
+.item-details {
     padding: 1rem;
     background-color: #303030;
     border-radius: 5px;
@@ -12,11 +12,11 @@
     font-size: 1.5rem;
 }
 
-.person-details h4 {
+.item-details h4 {
     margin-top: 1.4rem;
 }
 
-.person-details img {
+.item-details img {
     object-fit: fill;
     width: 30%;
     height: auto;
@@ -24,17 +24,17 @@
     margin-right: 1rem;
 }
 
-.person-details ul {
+.item-details ul {
     padding: 0;
     margin: 1rem 1rem 0 0;
     list-style: none;
 }
 
-.person-details ul li {
+.item-details ul li {
     padding:  0.3rem;
 }
 
-.person-details ul li span {
+.item-details ul li span {
     margin-left: 0.5rem;
     color: #00bc8c;
 }

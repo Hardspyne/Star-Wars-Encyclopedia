@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
 
 import ItemList from '../item-list/item-list';
-import PersonDetails from '../person-details/person-details';
+import ItemDetails, {ItemProperty} from '../item-details/item-details';
 
 import './person-page.css';
-import ErrorIndicator from "../error-indicator";
+import SwApiService from "../../services/swapi-service";
+import PageRow from "../PageRow";
+import ErrorBoundary from "../error-boundary";
 
 export default class PersonPage extends Component {
-
+    swApiService = new SwApiService();
 
     state = {
         selectedPerson: null,
-        isItemListLoaded: false,
-        hasError: false
+        isItemListLoaded: false
     };
 
     onPersonSelected = (id) => {
@@ -27,43 +28,33 @@ export default class PersonPage extends Component {
         })
     };
 
-    componentDidCatch(error, errorInfo) {
-        this.setState({
-            hasError: true
-        });
-    }
-
     render() {
-        let errorIndicator = null;
-        let personDetails = null;
-        let itemList = null;
-
-
-        if (this.state.hasError) {
-            errorIndicator = (
-                <ErrorIndicator/>
-            );
-        } else {
-            personDetails = (
-                <PersonDetails
-                    personId={this.state.selectedPerson}
-                    isItemListLoaded={this.state.isItemListLoaded}
-                />
-            );
-            itemList = (
-                <ItemList
-                    onItemSelected={this.onPersonSelected}
-                    onItemListLoaded={this.onItemListLoaded}
-                />
-            );
-        }
+        const personDetails = (
+            <ItemDetails
+                itemId={this.state.selectedPerson}
+                isItemListLoaded={this.state.isItemListLoaded}
+                getData={this.swApiService.getPerson}
+            >
+                <ItemProperty label={'Gender'} field={'gender'}/>
+                <ItemProperty label={'Birth Year'} field={'birthYerar'}/>
+                <ItemProperty label={'Eye Color'} field={'eyeColor'}/>
+            </ItemDetails>
+        );
+        const itemList = (
+            <ItemList
+                getData={this.swApiService.getAllPerson}
+                onItemSelected={this.onPersonSelected}
+                onItemListLoaded={this.onItemListLoaded}>
+                {item => item.name}
+            </ItemList>
+        );
 
         return (
-            <div className="person-page-info">
-                {errorIndicator}
-                {itemList}
-                {personDetails}
-            </div>
-        );
+            <ErrorBoundary>
+                <PageRow
+                    left={itemList}
+                    right={personDetails}
+                />
+            </ErrorBoundary>)
     }
 }
