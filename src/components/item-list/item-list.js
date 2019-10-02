@@ -1,47 +1,31 @@
-import React, {Component} from 'react';
+import React from 'react';
 import './item-list.css';
-import Spinner from "../spinner";
+import viewWithData from "../hoc-helpers/view-with-data";
+import SwApiService from "../../services/swapi-service";
 
-export default class ItemList extends Component {
-    state = {
-        itemList: null
-    };
+const {getAllPerson} = new SwApiService();
 
-    componentDidMount() {
-        const {getData} = this.props;
-        getData().then((itemList) => {
-            this.setState({itemList});
-            this.props.onItemListLoaded();
-        })
-    }
 
-    renderItems(itemList) {
-        return itemList.map(item => {
-            const label = this.props.children(item);
-           return (<li className='list-group-item'
-                 key={item.id}
-                 onClick={() => this.props.onItemSelected(item.id)}>
-               {label}
+const ItemList = (props) => {
+    const {spinner, data, onItemSelected, children:renderLabel} = props;
+
+    let renderedItems = null;
+    if (data) {
+        renderedItems = data.map(item => {
+            const label = renderLabel(item);
+            return (<li className='list-group-item'
+                        key={item.id}
+                        onClick={() => onItemSelected(item.id)}>
+                {label}
             </li>)
-    });
+        });
     }
+    return (
+        <ul className='item-list list-group'>
+            {spinner}
+            {renderedItems}
+        </ul>);
+};
 
-    render() {
-        const {itemList} = this.state;
 
-        let spinner = null;
-        let renderedItems = null;
-
-        if (!itemList) {
-            spinner = (<Spinner/>)
-        } else {
-            renderedItems = this.renderItems(itemList);
-        }
-
-        return (
-            <ul className='item-list list-group'>
-                {spinner}
-                {renderedItems}
-            </ul>);
-    }
-}
+export default viewWithData(ItemList, getAllPerson);
