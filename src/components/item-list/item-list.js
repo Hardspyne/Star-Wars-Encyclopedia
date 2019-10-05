@@ -1,10 +1,5 @@
 import React from 'react';
 import './item-list.css';
-import viewWithData from "../hoc-helpers/view-with-data";
-import SwApiService from "../../services/swapi-service";
-
-const {getAllPerson} = new SwApiService();
-
 
 const ItemList = (props) => {
     const {spinner, data, onItemSelected, children:renderLabel} = props;
@@ -28,4 +23,4 @@ const ItemList = (props) => {
 };
 
 
-export default viewWithData(ItemList, getAllPerson);
+export default ItemList;

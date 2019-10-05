@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 
-import ItemList from '../item-list/item-list';
-import ItemDetails, {ItemProperty} from '../item-details/item-details';
-
 import './person-page.css';
 import SwApiService from "../../services/swapi-service";
 import PageRow from "../PageRow";
 import ErrorBoundary from "../error-boundary";
+
+import {PersonDetails, PersonList, PlanetDetails, PlanetList, StarShipDetails, StarShipList} from '../sw-components';
 
 export default class PersonPage extends Component {
     swApiService = new SwApiService();
@@ -29,31 +28,57 @@ export default class PersonPage extends Component {
     };
 
     render() {
+        const personList = (<PersonList
+                onItemSelected={this.onPersonSelected}
+                onItemListLoaded={this.onItemListLoaded}/>
+        );
+
+        const startShipList = (<StarShipList
+                onItemSelected={this.onPersonSelected}
+                onItemListLoaded={this.onItemListLoaded}/>
+        );
+
+        const planetList = (<PlanetList
+                onItemSelected={this.onPersonSelected}
+                onItemListLoaded={this.onItemListLoaded}/>
+        );
+
         const personDetails = (
-            <ItemDetails
+            <PersonDetails
                 itemId={this.state.selectedPerson}
                 isItemListLoaded={this.state.isItemListLoaded}
-                getData={this.swApiService.getPerson}
-            >
-                <ItemProperty label={'Gender'} field={'gender'}/>
-                <ItemProperty label={'Birth Year'} field={'birthYerar'}/>
-                <ItemProperty label={'Eye Color'} field={'eyeColor'}/>
-            </ItemDetails>
+            />
         );
-        const itemList = (
-            <ItemList
-                getData={this.swApiService.getAllPerson}
-                onItemSelected={this.onPersonSelected}
-                onItemListLoaded={this.onItemListLoaded}>
-                {item => item.name}
-            </ItemList>
+
+
+        const planetDetails = (
+            <PlanetDetails
+                itemId={this.state.selectedPerson}
+                isItemListLoaded={this.state.isItemListLoaded}
+            />
+        );
+
+
+        const starShipDetails = (
+            <StarShipDetails
+                itemId={this.state.selectedPerson}
+                isItemListLoaded={this.state.isItemListLoaded}
+            />
         );
 
         return (
             <ErrorBoundary>
                 <PageRow
-                    left={itemList}
+                    left={personList}
                     right={personDetails}
+                />
+                <PageRow
+                    left={startShipList}
+                    right={starShipDetails}
+                />
+                <PageRow
+                    left={planetList}
+                    right={planetDetails}
                 />
             </ErrorBoundary>)
     }
