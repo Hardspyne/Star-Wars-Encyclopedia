@@ -1,3 +1,5 @@
-import viewWithData from "./view-with-data";
+import componentWithData from "./component-with-data";
+import componentWithSwApiService from "./component-with-sw-api-service";
+import componentWithChildFunction from './component-with-child-function'
 
-export {viewWithData};
+export {componentWithData, componentWithSwApiService, componentWithChildFunction};
