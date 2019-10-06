@@ -2,7 +2,7 @@ import React from 'react';
 import './item-list.css';
 
 const ItemList = (props) => {
-    const {spinner, data, onItemSelected, children:renderLabel} = props;
+    const {spinner, error, data, onItemSelected, children: renderLabel} = props;
 
     let renderedItems = null;
     if (data) {
@@ -19,6 +19,7 @@ const ItemList = (props) => {
         <ul className='item-list list-group'>
             {spinner}
             {renderedItems}
+            {error}
         </ul>);
 };
 

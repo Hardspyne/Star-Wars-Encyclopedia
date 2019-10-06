@@ -80,19 +80,19 @@ export default class SwApiService {
 
     async _convertToStarShip(from) {
         const id = SwApiService._extractId(from);
-        //todo
-        //  const imageUrl = await this._getImageUrlOrDefaultById(id);
+        const imageUrl = await this._getImageUrBylId(id, 'starships');
+
         return {
             id,
-            imageUrl: null,
+            imageUrl: imageUrl,
             name: from.name,
             model: from.model,
             manufacturer: from.manufacturer,
-            costInCredits: from.costInCredits,
+            costInCredits: from.cost_in_credits,
             length: from.length,
             crew: from.crew,
             passengers: from.passengers,
-            cargoCapacity: from.cargoCapacity
+            cargoCapacity: from.cargo_capacity
         }
     }
 

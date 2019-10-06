@@ -6,7 +6,7 @@
     height: 20rem;
 }
 
-.selectPersonText {
+.select-item-text {
     font-weight: bold;
     margin: auto;
     font-size: 1.5rem;
@@ -31,7 +31,7 @@
 }
 
 .item-details ul li {
-    padding:  0.3rem;
+    padding: 0.3rem;
 }
 
 .item-details ul li span {

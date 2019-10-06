@@ -61,7 +61,7 @@ export default class ItemDetails extends Component {
             spinner = <Spinner/>
         } else if (!item) {
             selectItem = isItemListLoaded ?
-                (<span className='selectPersonText'>Select person from a list</span>) : null;
+                (<span className='select-item-text'>{this.props.selectItemText}</span>) : null;
         } else {
             itemDetails = <ItemView item={item}
                                     itemProperties={React.Children.map(this.props.children,
@@ -76,7 +76,7 @@ export default class ItemDetails extends Component {
     }
 }
 
-const ItemView = ({item: {imageUrl, name, gender, birthYear, eyeColor}, itemProperties} = {}) => {
+const ItemView = ({item: {imageUrl, name}, itemProperties} = {}) => {
     return (
         <Fragment>
             <img src={imageUrl} alt='alt text'/>
