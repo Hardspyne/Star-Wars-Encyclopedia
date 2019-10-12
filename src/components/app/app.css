@@ -4,7 +4,7 @@ body {
 }
 .container {
     height: 100%;
-    overflow:auto;
+    overflow: visible;
 }
 
 ::-webkit-scrollbar {

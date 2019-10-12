@@ -3,20 +3,13 @@ import React, {Component} from 'react';
 import './page.css';
 import PageRow from "../page-row";
 import ErrorBoundary from "../error-boundary";
+import {PlanetDetails, PlanetList} from '../sw-components';
+import {withRouter} from 'react-router-dom';
 
-import {PersonDetails, PlanetDetails, PlanetList} from '../sw-components';
-
-export default class PlanetPage extends Component {
+class PlanetPage extends Component {
 
     state = {
-        selectedItem: null,
         isItemListLoaded: false
-    };
-
-    onItemSelected = (id) => {
-        this.setState({
-            selectedItem: id,
-        })
     };
 
     onItemListLoaded = () => {
@@ -26,15 +19,16 @@ export default class PlanetPage extends Component {
     };
 
     render() {
+        const {history, match} = this.props;
 
         const planetList = (<PlanetList
-                onItemSelected={this.onItemSelected}
+                onItemSelected={(itemId) => history.push(itemId)}
                 onItemListLoaded={this.onItemListLoaded}/>
         );
 
         const planetDetails = (
             <PlanetDetails
-                itemId={this.state.selectedItem}
+                itemId={match.params.id}
                 isItemListLoaded={this.state.isItemListLoaded}
                 selectItemText={"Select planet from a list"}
 
@@ -50,3 +44,6 @@ export default class PlanetPage extends Component {
             </ErrorBoundary>)
     }
 }
+
+export default withRouter(PlanetPage);
+

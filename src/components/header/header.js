@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
 import './header.css';
+import {Link} from "react-router-dom";
 
 export default class Header extends Component {
 
     render() {
         return (<div className='header'>
             <h3>
-                <a href='#'>
+                <Link to={'/'}>
                     Start Wars DB
-                </a>
+                </Link>
             </h3>
             <ul>
                 <li>
-                    <a href='#'>People</a>
+                    <Link to={'/persons/'}>Persons</Link>
                 </li>
                 <li>
-                    <a href='#'>Planets</a>
+                    <Link to={'/planets/'}>Planets</Link>
                 </li>
                 <li>
-                    <a href='#'>Startships</a>
+                    <Link to={'/starships/'}>Starhsips</Link>
                 </li>
             </ul>
         </div>);
