@@ -1,5 +1,6 @@
 import React from 'react';
 import './item-list.css';
+import PropTypes from 'prop-types';
 
 const ItemList = (props) => {
     const {spinner, error, data, onItemSelected, children: renderLabel} = props;
@@ -23,5 +24,12 @@ const ItemList = (props) => {
         </ul>);
 };
 
+ItemList.propTypes = {
+    onItemSelected: PropTypes.func,
+    data: PropTypes.arrayOf(PropTypes.object).isRequired,
+    children: PropTypes.func.isRequired,
+    spinner: PropTypes.node,
+    error: PropTypes.node
+};
 
 export default ItemList;

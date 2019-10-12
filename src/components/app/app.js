@@ -19,7 +19,7 @@ export default class App extends Component {
                 <SwApiServiceProvider value={this.swApiService}>
                     <div>
                         <Header/>
-                        <RandomPlanet/>
+                        <RandomPlanet updateInterval = {5000}/>
                         <PersonPage/>
                         <PlanetPage/>
                         <StarShipPage/>

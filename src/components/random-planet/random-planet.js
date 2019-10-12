@@ -4,15 +4,24 @@ import SwApiService from '../../services/swapi-service';
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 import defaultImage from './planet-default.jpg';
+import PropTypes from 'prop-types';
 
 
 export default class RandomPlanet extends Component {
 
     swApiService = new SwApiService();
 
+    static defaultProps = {
+        updateInterval: 10000
+    };
+    static propTypes = {
+        updateInterval: PropTypes.number
+    };
+
     componentDidMount() {
+        const {updateInterval} = this.props;
         this.updatePlanet();
-        window.setInterval(this.updatePlanet, 5000);
+        window.setInterval(this.updatePlanet, updateInterval);
     }
 
     state = {
@@ -65,6 +74,7 @@ export default class RandomPlanet extends Component {
         );
     }
 }
+
 
 const PlanetVieW = ({planet: {imageUrl, name, population, rotationPeriod, diameter}} = {}) => {
     return (
