@@ -9,6 +9,7 @@ import PersonPage from "../pages/person-page";
 import PlanetPage from "../pages/planet-page";
 import StarShipPage from "../pages/starship-page";
 import {BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import MainPage from "../main-page";
 
 export default class App extends Component {
     swApiService = new SwApiService();
@@ -23,11 +24,11 @@ export default class App extends Component {
                             <Header/>
                             <RandomPlanet updateInterval={5000}/>
                             <Switch>
-                                <Route path='/' exact render={() => (<h2>Welcome To StarDB</h2>)}/>
+                                <Route path='/' exact component={MainPage}/>
                                 <Route path='/persons/:id?' component={PersonPage}/>
                                 <Route path='/planets/:id?' component={PlanetPage}/>
                                 <Route path='/starships/:id?' component={StarShipPage}/>
-                                <Redirect to ='/'/>
+                                <Redirect to='/'/>
                             </Switch>
                         </div>
                     </Router>
