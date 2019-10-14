@@ -15,11 +15,10 @@ export default class App extends Component {
     swApiService = new SwApiService();
 
     render() {
-
         return (
             <ErrorBoundary>
                 <SwApiServiceProvider value={this.swApiService}>
-                    <Router>
+                    <Router basename={process.env.PUBLIC_URL}>
                         <div>
                             <Header/>
                             <RandomPlanet updateInterval={5000}/>

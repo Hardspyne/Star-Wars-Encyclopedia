@@ -2,6 +2,7 @@
   "name": "start-db",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://hardspyne.github.io/Star-Wars-Encyclopedia/",
   "dependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
@@ -13,7 +14,9 @@
     "start": "set PORT=3006 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
