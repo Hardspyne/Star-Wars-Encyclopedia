@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cf21060091870f2a1aab34b26535714d",
+    "revision": "109a9a789af0ddc6e78d5f0288687099",
     "url": "/Star-Wars-Encyclopedia/index.html"
   },
   {
