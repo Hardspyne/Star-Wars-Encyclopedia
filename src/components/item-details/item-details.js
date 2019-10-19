@@ -79,8 +79,8 @@ export default class ItemDetails extends Component {
 const ItemView = ({item: {imageUrl, name}, itemProperties} = {}) => {
     return (
         <Fragment>
-            <img src={imageUrl} alt='alt text'/>
-            <div className='media-body'>
+            <img src={imageUrl} alt='alt text' className={'smooth-appearance'}/>
+            <div className='media-body smooth-appearance'>
                 <h4>{name}</h4>
                 <ul className='list-group-flush'>
                     {itemProperties}
