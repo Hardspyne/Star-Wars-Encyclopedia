@@ -5,6 +5,7 @@
 }
 
 .item-list {
+    border-radius: 5px;
     width: 49%;
     height:20rem;
     overflow-y: auto;

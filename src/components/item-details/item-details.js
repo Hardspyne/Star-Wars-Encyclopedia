@@ -61,7 +61,7 @@ export default class ItemDetails extends Component {
             spinner = <Spinner/>
         } else if (!item) {
             selectItem = isItemListLoaded ?
-                (<span className='select-item-text'>{this.props.selectItemText}</span>) : null;
+                (<span className='select-item-text smooth-appearance'>{this.props.selectItemText}</span>) : null;
         } else {
             itemDetails = <ItemView item={item}
                                     itemProperties={React.Children.map(this.props.children,

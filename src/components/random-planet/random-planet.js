@@ -27,7 +27,8 @@ export default class RandomPlanet extends Component {
     state = {
         loading: true,
         hasError: false,
-        planet: {}
+        smoothHiding: false,
+        planet: null
     };
 
     updatePlanet = async () => {
@@ -41,8 +42,19 @@ export default class RandomPlanet extends Component {
         }
     };
 
-    onPlanetLoaded = (planet) => {
-        this.setState({planet, loading: false, hasError: false})
+    onPlanetLoaded = (newPlanet) => {
+        const {planet: oldPlanet} = this.state;
+        if (oldPlanet) {
+            this.setState({planet: oldPlanet, smoothHiding: true, loading: false, hasError: false});
+        }
+
+        setTimeout(() => this.setState({
+            planet: newPlanet,
+            smoothHiding: false,
+            loading: false,
+            hasError: false
+        }), 1000);
+
 
     };
 
@@ -51,7 +63,7 @@ export default class RandomPlanet extends Component {
     };
 
     render() {
-        const {planet, loading, hasError} = this.state;
+        const {planet, loading, hasError, smoothHiding} = this.state;
 
         let errorIndicator = null;
         let spinner = null;
@@ -62,7 +74,7 @@ export default class RandomPlanet extends Component {
         } else if (loading) {
             spinner = <Spinner/>
         } else {
-            planetView = <PlanetVieW planet={planet}/>
+            planetView = <PlanetVieW planet={planet} smoothHiding={smoothHiding}/>
         }
 
 
@@ -76,11 +88,12 @@ export default class RandomPlanet extends Component {
 }
 
 
-const PlanetVieW = ({planet: {imageUrl, name, population, rotationPeriod, diameter}} = {}) => {
+const PlanetVieW = ({planet: {imageUrl, name, population, rotationPeriod, diameter}, smoothHiding} = {}) => {
     return (
         <Fragment>
-            <img src={imageUrl == null ? defaultImage : imageUrl} alt='alt text'/>
-            <div className='media-body'>
+            <img className={smoothHiding ? 'smooth-hide' : 'smooth-appearance'}
+                 src={imageUrl == null ? defaultImage : imageUrl} alt='alt text'/>
+            <div className={`media-body ${smoothHiding ? 'smooth-hide' : 'smooth-appearance'}`}>
                 <h4>{name}</h4>
                 <ul className='list-group-flush'>
                     <li className='list-group-item'>

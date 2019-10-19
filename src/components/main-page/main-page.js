@@ -5,8 +5,12 @@ import starShipImage from './starship.png';
 import personImage from './person.png';
 import {Link} from "react-router-dom";
 
+
 const MainPage = () => {
-    return (<div className='main-page'>
+    const {useState} = React;
+    const [loading, setLoading] = useState(true);
+
+    return (<div style={{display: loading ? "none" : "flex"}} className='main-page smooth-appearance'>
         <h2>Welcome to the Star Wars DB</h2>
         <p>This is a small star wars encyclopedia based on the <a href='https://swapi.co/'>Star Wars API.</a></p>
         <h5 className='advise'>Please select category:</h5>
@@ -15,12 +19,14 @@ const MainPage = () => {
                 <img alt='persons' src={personImage}/>
                 <span>Persons</span>
             </Link>
-            <Link  to={'/planets/'} className='category-item'>
-                <img alt = 'planet' src={planetImage}/>
+            <Link to={'/planets/'} className='category-item'>
+                <img alt='planet' src={planetImage}/>
                 <span>Planets</span>
             </Link>
             <Link to={'/starships/'} className='category-item'>
-                <img alt = 'starhsips' src={starShipImage}/>
+                <img onLoad={() => {
+                    setLoading(false)
+                }} alt='starhsips' src={starShipImage}/>
                 <span>Starships</span>
             </Link>
         </div>

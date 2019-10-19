@@ -9,7 +9,7 @@ const ItemList = (props) => {
     if (data) {
         renderedItems = data.map(item => {
             const label = renderLabel(item);
-            return (<li className='list-group-item'
+            return (<li className='list-group-item smooth-appearance'
                         key={item.id}
                         onClick={() => onItemSelected(item.id)}>
                 {label}
