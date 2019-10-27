@@ -18,13 +18,13 @@ export default class Header extends Component {
             </h3>
             <ul>
                 <li className={active ==='persons'? 'active':''}>
-                    <NavLink activeClassName='active' to={'/persons/'}>Persons</NavLink>
+                    <NavLink activeClassName='active' to={'/persons'}>Persons</NavLink>
                 </li>
                 <li className={active ==='planets'? 'active':''}>
-                    <NavLink activeClassName='active' to={'/planets/'}>Planets</NavLink>
+                    <NavLink activeClassName='active' to={'/planets'}>Planets</NavLink>
                 </li>
                 <li className={active ==='starships'? 'active':''}>
-                    <NavLink activeClassName='active' to={'/starships/'}>Starhsips</NavLink>
+                    <NavLink activeClassName='active' to={'/starships'}>Starhsips</NavLink>
                 </li>
             </ul>
         </div>);

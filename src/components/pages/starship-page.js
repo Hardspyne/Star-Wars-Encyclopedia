@@ -3,7 +3,8 @@ import {withRouter} from 'react-router-dom';
 import './page.css';
 import PageRow from "../page-row";
 import ErrorBoundary from "../error-boundary";
-import {StarShipDetails, StarShipList} from '../sw-components';
+import {PersonList, StarShipDetails, StarShipList} from '../sw-components';
+import queryString from "query-string";
 
 class StarShipPage extends Component {
 
@@ -18,10 +19,11 @@ class StarShipPage extends Component {
     };
 
     render() {
-        const {history, match} = this.props;
-
+        const {history, match, location} = this.props;
+        let page = queryString.parse(location.search).page;
         const startShipList = (<StarShipList
-                onItemSelected={(itemId) => history.push(itemId)}
+                page={page}
+                onItemSelected={(itemId) => history.push(`/starships/${itemId}${page ? location.search : ''}`)}
                 onItemListLoaded={this.onItemListLoaded}/>
         );
 

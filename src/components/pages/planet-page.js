@@ -3,8 +3,9 @@ import React, {Component} from 'react';
 import './page.css';
 import PageRow from "../page-row";
 import ErrorBoundary from "../error-boundary";
-import {PlanetDetails, PlanetList} from '../sw-components';
+import {PersonList, PlanetDetails, PlanetList} from '../sw-components';
 import {withRouter} from 'react-router-dom';
+import queryString from "query-string";
 
 class PlanetPage extends Component {
 
@@ -19,10 +20,12 @@ class PlanetPage extends Component {
     };
 
     render() {
-        const {history, match} = this.props;
+        const {history, match, location} = this.props;
+        let page = queryString.parse(location.search).page;
 
         const planetList = (<PlanetList
-                onItemSelected={(itemId) => history.push(itemId)}
+                page={page}
+                onItemSelected={(itemId) => history.push(`/planets/${itemId}${page ? location.search : ''}`)}
                 onItemListLoaded={this.onItemListLoaded}/>
         );
 

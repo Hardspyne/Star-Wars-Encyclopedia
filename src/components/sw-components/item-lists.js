@@ -7,19 +7,24 @@ const renderNameAndModel = ({model, name}) => <span>{name}({model})</span>;
 
 const mapPersonMethodsToProps = (swApiService) => {
     return {
-        getData: swApiService.getAllPerson
+        getData: swApiService.getAllPerson,
+        getAllCount: swApiService.getAllPersonsCount
     }
 };
 
 const mapPlanetMethodsToProps = (swApiService) => {
     return {
-        getData: swApiService.getAllPlanets
+        getData: swApiService.getAllPlanets,
+        getAllCount: swApiService.getAllPlanetsCount
+
     }
 };
 
 const mapStarShipMethodsToProps = (swApiService) => {
     return {
-        getData: swApiService.getAllStarShips
+        getData: swApiService.getAllStarShips,
+        getAllCount: swApiService.getAllStarShipsCount
+
     }
 };
 
