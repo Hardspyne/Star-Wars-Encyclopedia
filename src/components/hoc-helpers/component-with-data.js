@@ -8,23 +8,53 @@ const componentWithData = (Wrapped) => {
             data: null,
             loading: true,
             error: false,
+            page: 1,
+            pageSize: 10,
+            allCount: null,
+            isNextPagePresent: true
         };
 
         componentDidMount() {
             this.update();
         }
 
-        update() {
-            this.props.getData().then((data) => {
-                this.setState({data, loading: false});
-                this.props.onItemListLoaded();
-            }).catch(() => {
-                this.setState({error: true, loading: false})
-            })
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            if (prevProps.page !== this.props.page) {
+                this.setState({loading: true, data: null, error: false});
+                this.update();
+            }
         }
 
+        update = async () => {
+            try {
+                const page = this.props.page ? this.props.page : this.state.page;
+
+                if (!this.state.allCount) {
+                    const allCount = await this.props.getAllCount();
+                    this.setState({allCount});
+                }
+
+                const data = await this.props.getData(page);
+                const isNextPagePresent = this.isNextPagePresent(page);
+                this.setState({data, loading: false, page, isNextPagePresent});
+                this.props.onItemListLoaded();
+            } catch (e) {
+                console.log(e);
+                this.setState({error: true, loading: false})
+            }
+        };
+
+
+        isNextPagePresent = (page) => {
+            const {allCount, pageSize} = this.state;
+            console.log(this.state);
+            console.log(allCount / (pageSize * (+page)));
+            return allCount / (pageSize * (+page)) > 1;
+        };
+
         render() {
-            const {data, loading, error} = this.state;
+            const {data, loading, error, page, isNextPagePresent} = this.state;
             let spinner;
             let errorView;
             if (loading) {
@@ -38,6 +68,8 @@ const componentWithData = (Wrapped) => {
                             data={data}
                             spinner={spinner}
                             error={errorView}
+                            page={page}
+                            isNextPagePresent={isNextPagePresent}
             />
         }
     }

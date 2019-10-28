@@ -15,15 +15,15 @@ const MainPage = () => {
         <p>This is a small star wars encyclopedia based on the <a href='https://swapi.co/'>Star Wars API.</a></p>
         <h5 className='advise'>Please select category:</h5>
         <div className='category'>
-            <Link to={'/persons/'} className='category-item'>
+            <Link to={'/persons'} className='category-item'>
                 <img alt='persons' src={personImage}/>
                 <span>Persons</span>
             </Link>
-            <Link to={'/planets/'} className='category-item'>
+            <Link to={'/planets'} className='category-item'>
                 <img alt='planet' src={planetImage}/>
                 <span>Planets</span>
             </Link>
-            <Link to={'/starships/'} className='category-item'>
+            <Link to={'/starships'} className='category-item'>
                 <img onLoad={() => {
                     setLoading(false)
                 }} alt='starhsips' src={starShipImage}/>

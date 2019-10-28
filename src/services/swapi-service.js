@@ -11,9 +11,14 @@ export default class SwApiService {
         return await res.json();
     };
 
-    getAllPerson = async () => {
-        const persons = await this.getResource(`/people`);
+    getAllPerson = async (page) => {
+        const persons = await this.getResource(`/people?page=${page}`);
         return Promise.all(persons.results.map((person) => this._convertToPerson(person)));
+    };
+
+    getAllPersonsCount = async () => {
+        const persons = await this.getResource(`/people`);
+        return persons.count;
     };
 
 
@@ -23,28 +28,30 @@ export default class SwApiService {
     };
 
 
-    getAllPlanets = async () => {
-        const planets = await this.getResource(`/planets`);
+    getAllPlanets = async (page) => {
+        const planets = await this.getResource(`/planets?page=${page}`);
         return Promise.all(planets.results.map((planet) => this._convertToPlanet(planet)));
     };
 
-
-    async getAllPlanetsCount() {
+    getAllPlanetsCount = async () => {
         const planets = await this.getResource(`/planets`);
         return planets.count;
-    }
-
+    };
 
     getPlanet = async (id) => {
         const result = await this.getResource(`/planets/${id}`);
         return await this._convertToPlanet(result);
     };
 
-    getAllStarShips = async () => {
-        const starShips = await this.getResource(`/starships`);
+    getAllStarShips = async (page) => {
+        const starShips = await this.getResource(`/starships?page=${page}`);
         return Promise.all(starShips.results.map((starShips) => this._convertToStarShip(starShips)));
     };
 
+    getAllStarShipsCount = async () => {
+        const starShips = await this.getResource(`/starships`);
+        return starShips.count;
+    };
 
     getStarShip = async (id) => {
         const result = await this.getResource(`/starships/${id}`);

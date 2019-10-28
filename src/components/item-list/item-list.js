@@ -1,9 +1,10 @@
 import React from 'react';
 import './item-list.css';
 import PropTypes from 'prop-types';
+import {Link} from "react-router-dom";
 
 const ItemList = (props) => {
-    const {spinner, error, data, onItemSelected, children: renderLabel} = props;
+    const {spinner, error, data, onItemSelected, children: renderLabel, page, isNextPagePresent} = props;
 
     let renderedItems = null;
     if (data) {
@@ -17,11 +18,18 @@ const ItemList = (props) => {
         });
     }
     return (
-        <ul className='item-list list-group'>
-            {spinner}
-            {renderedItems}
-            {error}
-        </ul>);
+        <div className={'item-list'}>
+            <ul className='list-group'>
+                {spinner}
+                {renderedItems}
+                {error}
+            </ul>
+            <div className="paging">
+                <Link className={`prev ${!page || +page === 1 ? 'disabled' : ''}`} to={`?page=${+page - 1}`}>←
+                    Prev</Link>
+                <Link className={`next ${isNextPagePresent ? '' : 'disabled'}`} to={`?page=${+page + 1}`}>Next →</Link>
+            </div>
+        </div>);
 };
 
 ItemList.propTypes = {

@@ -5,13 +5,41 @@
 }
 
 .item-list {
-    border-radius: 5px;
     width: 49%;
     height:20rem;
-    overflow-y: auto;
     background-color: #303030;
+    border-radius: 5px;
+}
+
+.item-list ul {
+    height: 90%;
+    overflow-y: auto;
+    border-bottom: none;
 }
 
 .item-list .list-group-item:hover {
     background-color: #444;
+}
+
+.item-list ul:nth-last-child {
+    border-bottom: none;
+}
+
+.paging {
+    height: 10%;
+    padding: 5px 10px;
+}
+
+.prev  {
+    float: left;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: gray;
+}
+
+.next {
+    float:right;
 }
