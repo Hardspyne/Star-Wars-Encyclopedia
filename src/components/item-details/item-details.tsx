@@ -1,10 +1,26 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component, Fragment, ReactElement} from 'react';
 import './item-details.css';
 import Spinner from "../spinner";
 
-export default class ItemDetails extends Component {
 
-    state = {
+type ItemDetailsState = {
+    item: any,
+    loading: boolean,
+    isItemListLoaded: boolean
+};
+
+
+type ItemDetailsProps = {
+    item: any,
+    itemId: string,
+    isItemListLoaded: boolean,
+    selectItemText: string,
+    getData: (itemId: string) => any
+};
+
+export default class ItemDetails extends Component<ItemDetailsProps, ItemDetailsState> {
+
+    state: ItemDetailsState = {
         item: null,
         loading: false,
         isItemListLoaded: false
@@ -19,7 +35,7 @@ export default class ItemDetails extends Component {
     }
 
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps: ItemDetailsProps) {
         if (this.props.isItemListLoaded !== prevProps.isItemListLoaded) {
             this.setState({
                 isItemListLoaded: this.props.isItemListLoaded
@@ -41,7 +57,7 @@ export default class ItemDetails extends Component {
             isItemListLoaded: this.props.isItemListLoaded
         });
 
-        getData(itemId).then(item => {
+        getData(itemId).then((item: unknown) => {
             this.setState({
                 item,
                 loading: false
@@ -65,7 +81,7 @@ export default class ItemDetails extends Component {
         } else {
             itemDetails = <ItemView item={item}
                                     itemProperties={React.Children.map(this.props.children,
-                                        (child) => React.cloneElement(child, {item}))}/>
+                                        (child) => React.cloneElement(child as ReactElement, {item}))}/>
         }
 
         return (<div className='media item-details'>
@@ -76,7 +92,10 @@ export default class ItemDetails extends Component {
     }
 }
 
-const ItemView = ({item: {imageUrl, name}, itemProperties} = {}) => {
+const ItemView: React.FC<{
+    item?: any,
+    itemProperties?: any
+}> = ({item: {imageUrl, name}, itemProperties} = {}) => {
     return (
         <Fragment>
             <img src={imageUrl} alt='alt text' className={'smooth-appearance'}/>
@@ -91,7 +110,11 @@ const ItemView = ({item: {imageUrl, name}, itemProperties} = {}) => {
 };
 
 
-const ItemProperty = ({field, label, item}) => {
+const ItemProperty: React.FC<{
+    field: string,
+    label: string,
+    item?: any
+}> = ({field, label, item}) => {
     return (
         <li className='list-group-item'>
             {label}

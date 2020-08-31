@@ -5,7 +5,7 @@ import ItemDetails, {ItemProperty} from "../item-details";
 import {componentWithSwApiService} from "../hoc-helpers";
 
 
-const PlanetDetails = (props) => {
+const PlanetDetails = (props:any) => {
     return (<ItemDetails
         {...props}
     >
@@ -15,7 +15,7 @@ const PlanetDetails = (props) => {
     </ItemDetails>)
 };
 
-const mapMethodsToProps = (swApiService) => {
+const mapMethodsToProps = (swApiService:any) => {
     return {
         getData: swApiService.getPlanet,
     }

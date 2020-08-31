@@ -7,7 +7,19 @@ import defaultImage from './planet-default.jpg';
 import PropTypes from 'prop-types';
 
 
-export default class RandomPlanet extends Component {
+type RandomPlanetPropsType = {
+    updateInterval: any
+}
+
+type RandomPlanetPropsState = {
+    loading: boolean,
+    hasError: boolean,
+    smoothHiding: boolean,
+    planet: any
+}
+
+
+export default class RandomPlanet extends Component<RandomPlanetPropsType, RandomPlanetPropsState> {
 
     swApiService = new SwApiService();
 
@@ -42,7 +54,7 @@ export default class RandomPlanet extends Component {
         }
     };
 
-    onPlanetLoaded = (newPlanet) => {
+    onPlanetLoaded = (newPlanet: any) => {
         const {planet: oldPlanet} = this.state;
         if (oldPlanet) {
             this.setState({planet: oldPlanet, smoothHiding: true, loading: false, hasError: false});
@@ -58,7 +70,7 @@ export default class RandomPlanet extends Component {
 
     };
 
-    onError = (error) => {
+    onError = (error: Error) => {
         this.setState({hasError: true})
     };
 
@@ -74,7 +86,7 @@ export default class RandomPlanet extends Component {
         } else if (loading) {
             spinner = <Spinner/>
         } else {
-            planetView = <PlanetVieW planet={planet} smoothHiding={smoothHiding}/>
+            planetView = <PlanetVieW planet={planet!} smoothHiding={smoothHiding}/>
         }
 
 
@@ -88,7 +100,18 @@ export default class RandomPlanet extends Component {
 }
 
 
-const PlanetVieW = ({planet: {imageUrl, name, population, rotationPeriod, diameter}, smoothHiding} = {}) => {
+type PlanetViewType = {
+    planet: {
+        imageUrl: any,
+        name: any,
+        population: any,
+        rotationPeriod: any,
+        diameter: any
+    },
+    smoothHiding: boolean
+}
+
+const PlanetVieW = ({planet: {imageUrl, name, population, rotationPeriod, diameter}, smoothHiding}: PlanetViewType) => {
     return (
         <Fragment>
             <img className={smoothHiding ? 'smooth-hide' : 'smooth-appearance'}

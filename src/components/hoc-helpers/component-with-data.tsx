@@ -2,9 +2,31 @@ import React, {Component} from 'react';
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 
-const componentWithData = (Wrapped) => {
-    return class extends Component {
-        state = {
+type componentWithDataState = {
+    data: any,
+    loading: boolean,
+    error: boolean,
+    page: number,
+    pageSize: number,
+    allCount: null | number,
+    isNextPagePresent: boolean
+};
+
+
+type componentWithDataProps = {
+    data: any
+    spinner: any
+    error: any
+    page: number
+    isNextPagePresent: boolean
+    getAllCount: () => number
+    getData: (page: number) => any
+    onItemListLoaded: () => void
+}
+
+const componentWithData: (wrapped: React.ComponentType<componentWithDataProps>) => any = (Wrapped) => {
+    return class extends Component<componentWithDataProps, componentWithDataState> {
+        state: componentWithDataState = {
             data: null,
             loading: true,
             error: false,
@@ -19,7 +41,7 @@ const componentWithData = (Wrapped) => {
         }
 
 
-        componentDidUpdate(prevProps, prevState, snapshot) {
+        componentDidUpdate(prevProps: componentWithDataProps) {
             if (prevProps.page !== this.props.page) {
                 this.setState({loading: true, data: null, error: false});
                 this.update();
@@ -46,10 +68,11 @@ const componentWithData = (Wrapped) => {
         };
 
 
-        isNextPagePresent = (page) => {
+        isNextPagePresent = (page: number) => {
             const {allCount, pageSize} = this.state;
-            console.log(this.state);
-            console.log(allCount / (pageSize * (+page)));
+            if (!allCount) {
+                return false;
+            }
             return allCount / (pageSize * (+page)) > 1;
         };
 

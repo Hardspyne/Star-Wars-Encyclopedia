@@ -1,8 +1,14 @@
 import React from 'react';
 import {SwApiServiceConsumer} from "../swapi-service-context";
 
-const componentWithSwApiService = (mapMethodsToProps) => (Wrapped) => {
-    return (props) => {
+type mapSwapiServiceMethodsToPropsType = (swApiService: any) => {
+    getData: (page: number) => any
+    getAllCount?: () => number
+};
+
+
+const componentWithSwApiService = (mapMethodsToProps: mapSwapiServiceMethodsToPropsType) => <T extends { [prop: string]: any }>(Wrapped: React.ComponentType<T>) => {
+    return (props: T) => {
         return (<SwApiServiceConsumer>
             {
                 (swApiService) => {

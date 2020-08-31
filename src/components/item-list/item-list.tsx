@@ -1,14 +1,24 @@
-import React from 'react';
+import React, {ReactElement} from 'react';
 import './item-list.css';
-import PropTypes from 'prop-types';
+import PropTypes, {ReactNodeLike} from 'prop-types';
 import {Link} from "react-router-dom";
 
-const ItemList = (props) => {
+export type ItemListProps = {
+    spinner: ReactNodeLike,
+    error: ReactNodeLike,
+    data: any,
+    onItemSelected: any,
+    children: (...args: any[]) => any,
+    page: number,
+    isNextPagePresent: boolean
+};
+
+const ItemList: React.FC<ItemListProps> = (props) => {
     const {spinner, error, data, onItemSelected, children: renderLabel, page, isNextPagePresent} = props;
 
     let renderedItems = null;
     if (data) {
-        renderedItems = data.map(item => {
+        renderedItems = data.map((item:{ id: string }) => {
             const label = renderLabel(item);
             return (<li className='list-group-item'
                         key={item.id}

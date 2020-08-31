@@ -1,9 +1,9 @@
 export default class SwApiService {
 
-    _apiBase = 'https://swapi.co/api';
+    _apiBase = 'https://swapi.dev/api';
     _imageBase = 'https://starwars-visualguide.com/assets/img';
 
-    async getResource(url) {
+    async getResource(url:string) {
         const res = await fetch(`${this._apiBase}${url}`);
         if (!res.ok) {
             throw new Error(`fetch error for url ${url}`)
@@ -11,9 +11,9 @@ export default class SwApiService {
         return await res.json();
     };
 
-    getAllPerson = async (page) => {
+    getAllPerson = async (page:number) => {
         const persons = await this.getResource(`/people?page=${page}`);
-        return Promise.all(persons.results.map((person) => this._convertToPerson(person)));
+        return Promise.all(persons.results.map((person:any) => this._convertToPerson(person)));
     };
 
     getAllPersonsCount = async () => {
@@ -22,15 +22,15 @@ export default class SwApiService {
     };
 
 
-    getPerson = async (id) => {
+    getPerson = async (id:string) => {
         const result = await this.getResource(`/people/${id}`);
         return await this._convertToPerson(result);
     };
 
 
-    getAllPlanets = async (page) => {
+    getAllPlanets = async (page:number) => {
         const planets = await this.getResource(`/planets?page=${page}`);
-        return Promise.all(planets.results.map((planet) => this._convertToPlanet(planet)));
+        return Promise.all(planets.results.map((planet:any) => this._convertToPlanet(planet)));
     };
 
     getAllPlanetsCount = async () => {
@@ -38,14 +38,14 @@ export default class SwApiService {
         return planets.count;
     };
 
-    getPlanet = async (id) => {
+    getPlanet = async (id:number) => {
         const result = await this.getResource(`/planets/${id}`);
         return await this._convertToPlanet(result);
     };
 
-    getAllStarShips = async (page) => {
+    getAllStarShips = async (page:number) => {
         const starShips = await this.getResource(`/starships?page=${page}`);
-        return Promise.all(starShips.results.map((starShips) => this._convertToStarShip(starShips)));
+        return Promise.all(starShips.results.map((starShips:any) => this._convertToStarShip(starShips)));
     };
 
     getAllStarShipsCount = async () => {
@@ -53,12 +53,12 @@ export default class SwApiService {
         return starShips.count;
     };
 
-    getStarShip = async (id) => {
+    getStarShip = async (id:string) => {
         const result = await this.getResource(`/starships/${id}`);
         return await this._convertToStarShip(result);
     };
 
-    async _getImageUrBylId(id, type) {
+    async _getImageUrBylId(id:string, type:string) {
         const res = await fetch(`${this._imageBase}/${type}/${id}.jpg`);
         if (!res.ok) {
             return null;
@@ -67,12 +67,12 @@ export default class SwApiService {
         }
     }
 
-    static _extractId(from) {
+    static _extractId(from:any) {
         const idRegex = /\/([0-9]+)\/$/;
         return from.url.match(idRegex)[1];
     }
 
-    async _convertToPlanet(from) {
+    async _convertToPlanet(from:any) {
         const id = SwApiService._extractId(from);
         const imageUrl = await this._getImageUrBylId(id, 'planets');
         return {
@@ -85,7 +85,7 @@ export default class SwApiService {
         }
     }
 
-    async _convertToStarShip(from) {
+    async _convertToStarShip(from:any) {
         const id = SwApiService._extractId(from);
         const imageUrl = await this._getImageUrBylId(id, 'starships');
 
@@ -104,7 +104,7 @@ export default class SwApiService {
     }
 
 
-    async _convertToPerson(from) {
+    async _convertToPerson(from:any) {
         const id = SwApiService._extractId(from);
         const imageUrl = await this._getImageUrBylId(id, 'characters');
         return {

@@ -1,18 +1,19 @@
 import React from 'react';
 import ItemList from '../item-list';
 import {componentWithChildFunction, componentWithData, componentWithSwApiService} from '../hoc-helpers';
+import {ItemListProps} from "../item-list/item-list";
 
-const renderName = ({name}) => <span>{name}</span>;
-const renderNameAndModel = ({model, name}) => <span>{name}({model})</span>;
+const renderName = ({name}:{name:string}) => <span>{name}</span>;
+const renderNameAndModel = ({model, name}:{model:string, name:string}) => <span>{name}({model})</span>;
 
-const mapPersonMethodsToProps = (swApiService) => {
+const mapPersonMethodsToProps = (swApiService:any) => {
     return {
         getData: swApiService.getAllPerson,
         getAllCount: swApiService.getAllPersonsCount
     }
 };
 
-const mapPlanetMethodsToProps = (swApiService) => {
+const mapPlanetMethodsToProps = (swApiService:any) => {
     return {
         getData: swApiService.getAllPlanets,
         getAllCount: swApiService.getAllPlanetsCount
@@ -20,7 +21,7 @@ const mapPlanetMethodsToProps = (swApiService) => {
     }
 };
 
-const mapStarShipMethodsToProps = (swApiService) => {
+const mapStarShipMethodsToProps = (swApiService:any) => {
     return {
         getData: swApiService.getAllStarShips,
         getAllCount: swApiService.getAllStarShipsCount
@@ -34,6 +35,7 @@ const PersonList = componentWithSwApiService(mapPersonMethodsToProps)(
             ItemList)));
 
 const PlanetList = componentWithSwApiService(mapPlanetMethodsToProps)(
+
     componentWithData(
         componentWithChildFunction(renderName)(
             ItemList)));

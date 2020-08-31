@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
+import {withRouter} from 'react-router-dom';
 import './page.css';
 import PageRow from "../page-row";
 import ErrorBoundary from "../error-boundary";
-import {PersonDetails, PersonList, PlanetList} from '../sw-components';
-import {withRouter} from 'react-router-dom';
-import queryString from 'query-string';
+import {StarShipDetails, StarShipList} from '../sw-components';
+import queryString from "query-string";
+import {PagePropsType, PageStateType} from "./page-types.";
 
-
-class PersonPage extends Component {
+class StarShipPage extends Component<PagePropsType, PageStateType> {
 
     state = {
         isItemListLoaded: false
@@ -22,28 +22,28 @@ class PersonPage extends Component {
     render() {
         const {history, match, location} = this.props;
         let page = queryString.parse(location.search).page;
-        const personList = (<PersonList
+        const startShipList = (<StarShipList
                 page={page}
-                onItemSelected={(itemId) => history.push(`/persons/${itemId}${page ? location.search : ''}`)}
+                onItemSelected={(itemId:string) => history.push(`/starships/${itemId}${page ? location.search : ''}`)}
                 onItemListLoaded={this.onItemListLoaded}/>
         );
 
-        const personDetails = (
-            <PersonDetails
+        const starShipDetails = (
+            <StarShipDetails
                 itemId={match.params.id}
                 isItemListLoaded={this.state.isItemListLoaded}
-                selectItemText={"Select person from a list"}
+                selectItemText={"Select starship from a list"}
             />
         );
 
         return (
             <ErrorBoundary>
                 <PageRow
-                    left={personList}
-                    right={personDetails}
+                    left={startShipList}
+                    right={starShipDetails}
                 />
             </ErrorBoundary>)
     }
 }
 
-export default withRouter(PersonPage);
+export default withRouter(StarShipPage);

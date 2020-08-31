@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-
 import './page.css';
 import PageRow from "../page-row";
 import ErrorBoundary from "../error-boundary";
-import {PersonList, PlanetDetails, PlanetList} from '../sw-components';
+import {PersonDetails, PersonList} from '../sw-components';
 import {withRouter} from 'react-router-dom';
-import queryString from "query-string";
+import queryString from 'query-string';
+import {PagePropsType, PageStateType} from "./page-types.";
 
-class PlanetPage extends Component {
+
+
+
+class PersonPage extends Component<PagePropsType, PageStateType> {
 
     state = {
         isItemListLoaded: false
@@ -21,32 +24,29 @@ class PlanetPage extends Component {
 
     render() {
         const {history, match, location} = this.props;
-        let page = queryString.parse(location.search).page;
-
-        const planetList = (<PlanetList
+        let page = queryString.parse(location.search).page as string;
+        const personList = (<PersonList
                 page={page}
-                onItemSelected={(itemId) => history.push(`/planets/${itemId}${page ? location.search : ''}`)}
+                onItemSelected={(itemId: string) => history.push(`/persons/${itemId}${page ? location.search : ''}`)}
                 onItemListLoaded={this.onItemListLoaded}/>
         );
 
-        const planetDetails = (
-            <PlanetDetails
+        const personDetails = (
+            <PersonDetails
                 itemId={match.params.id}
                 isItemListLoaded={this.state.isItemListLoaded}
-                selectItemText={"Select planet from a list"}
-
+                selectItemText={"Select person from a list"}
             />
         );
 
         return (
             <ErrorBoundary>
                 <PageRow
-                    left={planetList}
-                    right={planetDetails}
+                    left={personList}
+                    right={personDetails}
                 />
             </ErrorBoundary>)
     }
 }
 
-export default withRouter(PlanetPage);
-
+export default withRouter(PersonPage);
